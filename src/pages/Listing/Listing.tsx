@@ -75,7 +75,7 @@ const Listing: FunctionComponent = () => {
                 index + 1
               }`}</h2>
               <p className="text-gray-700">Number of Cards: {grid}</p>
-              <p className="text-gray-700">Description: {grid / 2} Pairs</p>
+              <p className="text-gray-700">Description: {grid / gameData.matchesRequired} Pairs</p>
               <p className="text-gray-700">
                 Required Matches: {gameData.matchesRequired.toString()}
               </p>
