@@ -1,0 +1,15 @@
+.headerContainer {
+  @apply bg-gradient-to-r from-headerGradientStart via-headerGradientMiddle to-headerGradientEnd text-white p-4 fixed w-full top-0 left-0 shadow-lg z-10 rounded-b-3xl;
+}
+
+.headerContent {
+  @apply container mx-auto max-w-7xl flex justify-between items-center;
+}
+
+.titleContainer {
+  @apply flex items-center space-x-2;
+}
+
+.title {
+  @apply text-3xl font-extrabold;
+}
