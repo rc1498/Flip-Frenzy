@@ -26,8 +26,8 @@ const GamePage: FunctionComponent = () => {
   const matrix = parseInt(
     searchParams.get(generalConstants.matrixParamKey) ?? "0"
   );
-  const level: number = parseInt(
-    searchParams.get(generalConstants.levelParamKey) ?? "2"
+  const pairs: number = parseInt(
+    searchParams.get(generalConstants.pairParamKey) ?? "2"
   );
 
   // States
@@ -44,28 +44,18 @@ const GamePage: FunctionComponent = () => {
 
   // generate cards on page load
   useEffect(() => {
-    setCards(generateCards(matrix, correctSearchParam, level));
-  }, [matrix, correctSearchParam, level]);
+    setCards(generateCards(matrix, correctSearchParam, pairs));
+  }, [matrix, correctSearchParam, pairs]);
 
   const checkAndRemoveDuplicateCards = (
     clickedCardParam: tClickedCardArray
   ) => {
-    const clickedCardClone = [...clickedCardParam];
     let cardsListClone = [...cards];
-
-    const dataMap = new Map<string, number>();
-
-    for (const [index, item] of clickedCardClone.entries()) {
-      // check for duplicate in map
-      if (dataMap.get(item.id)) {
-        clickedCardClone.splice(index, 1);
-        cardsListClone = cardsListClone.filter((card) => card.id !== item.id);
-      } else {
-        dataMap.set(item.id, 1);
-      }
-    }
+    cardsListClone = cardsListClone.filter(
+      (card) => card.id !== clickedCardParam[0].id
+    );
     setCards(cardsListClone);
-    setClickedCards(clickedCardClone);
+    setClickedCards([]);
     timeOutId.current = null;
   };
 
@@ -84,14 +74,14 @@ const GamePage: FunctionComponent = () => {
 
     // proceed after timeout
     timeOutId.current = setTimeout(() => {
-      if (filteredItems.length === level && spread.length === level) {
+      if (filteredItems.length === pairs && spread.length === pairs) {
         // check for duplicates after a second
         checkAndRemoveDuplicateCards(spread);
       } else {
         // reset clicked cards
         setClickedCards([]);
       }
-    }, level * 500);
+    }, pairs * 500);
   };
 
   const showHideCard = (cardId: string, cardIndx: number) => {
@@ -112,11 +102,15 @@ const GamePage: FunctionComponent = () => {
         </button>
       </div>
       {/* TODO -  Convert to a component later */}
-      <div className={styles.gameContainer}>
+      <div
+        className={styles.gameContainer}
+        style={{
+          gridTemplateColumns: `repeat(${matrix}, minmax(0, 1fr))`,
+          gridTemplateRows: `repeat(${matrix}, minmax(0, 1fr))`,
+        }} // Inline style for dynamic columns
+      >
         {cards.length === 0 && (
-          <div style={{ width: "100vw" }}>
-            Congratulations you've completed the game !
-          </div>
+          <div>Congratulations you've completed the game !</div>
         )}
         {cards.map((item, index) => {
           return (

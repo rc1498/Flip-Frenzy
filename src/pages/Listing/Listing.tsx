@@ -67,26 +67,31 @@ const Listing: FunctionComponent = () => {
       {/* Game Levels List - Card View */}
       {/* TODO - Convert to a component later*/}
       <div className={styles.listGrid}>
-        {gameData?.data.map((level, index) => (
-          <div key={index} className={styles.gameCard}>
-            <h2 className="text-xl font-semibold mb-2">{level.title}</h2>
-            <p className="text-gray-700">Number of Cards: {level.numOfCards}</p>
-            <p className="text-gray-700">Description: {level.description}</p>
-            <p className="text-gray-700">
-              Required Matches: {gameData.matchesRequired.toString()}
-            </p>
-            <button
-              className={styles.button}
-              onClick={() => {
-                navigate(
-                  `/flip-game?matrix=${level.numOfCards}&level=${gameData.matchesRequired}`
-                );
-              }}
-            >
-              Play Now
-            </button>
-          </div>
-        ))}
+        {gameData?.data.map((level, index) => {
+          const grid = level.numOfCards * level.numOfCards;
+          return (
+            <div key={index} className={styles.gameCard}>
+              <h2 className="text-xl font-semibold mb-2">{`Game ${
+                index + 1
+              }`}</h2>
+              <p className="text-gray-700">Number of Cards: {grid}</p>
+              <p className="text-gray-700">Description: {grid / 2} Pairs</p>
+              <p className="text-gray-700">
+                Required Matches: {gameData.matchesRequired.toString()}
+              </p>
+              <button
+                className={styles.button}
+                onClick={() => {
+                  navigate(
+                    `/flip-game?matrix=${level.numOfCards}&pairs=${gameData.matchesRequired}`
+                  );
+                }}
+              >
+                Play Now
+              </button>
+            </div>
+          );
+        })}
 
         {/* TODO - Add a infinite load later, by pushing values and incrementing the value in multiples */}
       </div>

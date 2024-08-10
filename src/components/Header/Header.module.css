@@ -3,7 +3,7 @@
 }
 
 .headerContent {
-  @apply container mx-auto max-w-7xl flex justify-between items-center;
+  @apply container mx-auto max-w-7xl px-4 flex justify-between items-center;
 }
 
 .titleContainer {

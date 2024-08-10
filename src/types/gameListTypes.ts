@@ -1,7 +1,5 @@
 export interface iGameListItem {
   numOfCards: number;
-  title: string;
-  description: string;
 }
 
 export interface iGameLevelItem {

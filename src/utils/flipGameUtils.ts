@@ -11,10 +11,10 @@ const getCardSets = (repeated: number, generaredCards: iCard[]) => {
 export const generateCards = (
   numsOfItems: number,
   correctSearchParam: (numOfItems: string) => void,
-  level: number
+  pairs: number
 ) => {
   // if odd number - add 1 and convert to a valid arg
-  const lengthOfArr = numsOfItems % level === 0 ? numsOfItems : numsOfItems + 1;
+  const lengthOfArr = numsOfItems % pairs === 0 ? numsOfItems : numsOfItems + 1;
 
   //   update search paramm
   if (numsOfItems !== lengthOfArr) {
@@ -24,7 +24,7 @@ export const generateCards = (
   const generatedCards: iCard[] = [];
 
   // generate lengthOfArr / level cards, as we want pairs / triplets / quadruples
-  for (let i = 0; i < lengthOfArr / level; i++) {
+  for (let i = 0; i < lengthOfArr*lengthOfArr / pairs; i++) {
     const randomImgIndx = Math.floor(Math.random() * 1000);
     generatedCards.push({
       id: `Image${i + 1}`,
@@ -35,6 +35,6 @@ export const generateCards = (
 
   // sort to acheive random order
   // TODO check for more ways to shuffle later
-  const cardSet = getCardSets(level, generatedCards);
+  const cardSet = getCardSets(pairs, generatedCards);
   return cardSet.sort(() => Math.round(Math.random() * -0.57));
 };
