@@ -1,8 +1,11 @@
 import { FunctionComponent } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header/Header";
+import useScrollToTop from "../hooks/useScrollToTop";
 
 const AppLayout: FunctionComponent = () => {
+  useScrollToTop();
+
   return (
     <>
       <Header />

@@ -11,14 +11,12 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { generateCards } from "../../utils/flipGameUtils";
 import { iCard, tClickedCardArray } from "../../types/gameListTypes";
 import { generalConstants } from "../../constants/general";
-import useScrollToTop from "../../hooks/useScrollToTop";
 
 import styles from "./FlipGame.module.css";
 import { nullableNumber } from "../../types/generalTypes";
 
 const GamePage: FunctionComponent = () => {
   // Other utils
-  useScrollToTop();
   const navigate = useNavigate();
 
   // Get Query Param
@@ -105,8 +103,8 @@ const GamePage: FunctionComponent = () => {
       <div
         className={styles.gameContainer}
         style={{
-          gridTemplateColumns: `repeat(${matrix}, minmax(0, 1fr))`,
-          gridTemplateRows: `repeat(${matrix}, minmax(0, 1fr))`,
+          // break mmatrix structure if value beyond 7 to avaoid breaking / overlapping elements
+          gridTemplateColumns: `repeat(${Math.min(matrix, 7)}, minmax(0, 1fr))`,
         }} // Inline style for dynamic columns
       >
         {cards.length === 0 && (

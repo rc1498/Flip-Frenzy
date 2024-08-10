@@ -5,7 +5,6 @@ export const gameList: tGameList = {
     matchesRequired: 2,
     // increasing by 4 each turn
     data: [
-      { numOfCards: 2 },
       { numOfCards: 4 },
       { numOfCards: 6 },
       { numOfCards: 8 },
